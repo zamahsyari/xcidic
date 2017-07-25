@@ -12,6 +12,7 @@ import makeSelectRegister from './selectors';
 import messages from './messages';
 import { FormGroup, FormControl, ControlLabel, Button, Alert } from 'react-bootstrap';
 import { CheckAlert } from 'components/CheckAlert';
+import {Header} from 'components/Header';
 
 export class Register extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props){
@@ -45,35 +46,41 @@ export class Register extends React.Component { // eslint-disable-line react/pre
       })
     }
   }
+  submitData(){
+    console.log("oke");
+  }
   render() {
     return (
-      <div className="container">
-        <CheckAlert isAlert={this.state.isAlert} alertStyle={this.state.alertStyle} alertData={this.state.alertData} />
-        <h1>Sign Up</h1>
-        <form>
-          <FormGroup>
-            <ControlLabel>Email</ControlLabel>
-            <FormControl type="text" placeholder="Your email" value={this.state.email} onChange={this.updateEmail} />
-          </FormGroup>
-          <FormGroup>
-            <ControlLabel>Password</ControlLabel>
-            <FormControl type="password" placeholder="Your password" value={this.state.password} onChange={this.updatePassword} />
-          </FormGroup>
-          <FormGroup>
-            <ControlLabel>Re-type Password</ControlLabel>
-            <FormControl type="password" placeholder="Your password" onChange={this.updateRePassword} />
-          </FormGroup>
-          <FormGroup controlId="formControlsSelect">
-            <ControlLabel>Role</ControlLabel>
-            <FormControl componentClass="select" placeholder="select role">
-              <option value="user">User</option>
-              <option value="doctor">Doctor</option>
-            </FormControl>
-          </FormGroup>
-          <Button bsStyle="primary" type="submit">Register</Button>
-          <br/><br/>
-          Feeling registered ? <a href="/login">Log in instead</a>
-        </form>
+      <div>
+        <Header />
+        <div className="container">
+          <CheckAlert isAlert={this.state.isAlert} alertStyle={this.state.alertStyle} alertData={this.state.alertData} />
+          <h1>Sign Up</h1>
+          <form onSubmit={this.submitData}>
+            <FormGroup>
+              <ControlLabel>Email</ControlLabel>
+              <FormControl type="text" placeholder="Your email" value={this.state.email} onChange={this.updateEmail} />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Password</ControlLabel>
+              <FormControl type="password" placeholder="Your password" value={this.state.password} onChange={this.updatePassword} />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Re-type Password</ControlLabel>
+              <FormControl type="password" placeholder="Your password" onChange={this.updateRePassword} />
+            </FormGroup>
+            <FormGroup controlId="formControlsSelect">
+              <ControlLabel>Role</ControlLabel>
+              <FormControl componentClass="select" placeholder="select role">
+                <option value="user">User</option>
+                <option value="doctor">Doctor</option>
+              </FormControl>
+            </FormGroup>
+            <Button bsStyle="primary" type="submit">Register</Button>
+            <br/><br/>
+            Feeling registered ? <a href="/login">Log in instead</a>
+          </form>
+        </div>
       </div>
     );
   }

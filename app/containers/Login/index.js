@@ -12,6 +12,7 @@ import makeSelectLogin from './selectors';
 import messages from './messages';
 import { FormGroup, FormControl, ControlLabel, Button, Alert } from 'react-bootstrap';
 import { CheckAlert } from 'components/CheckAlert';
+import { Header } from 'components/Header';
 
 export class Login extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props){
@@ -25,22 +26,25 @@ export class Login extends React.Component { // eslint-disable-line react/prefer
 
   render() {
     return (
-      <div className="container">
-        <CheckAlert isAlert={this.state.isAlert} alertStyle={this.state.alertStyle} alertData={this.state.alertData} />
-        <h1>Login</h1>
-        <form>
-          <FormGroup>
-            <ControlLabel>Email</ControlLabel>
-            <FormControl type="text" placeholder="Your email" />
-          </FormGroup>
-          <FormGroup>
-            <ControlLabel>Password</ControlLabel>
-            <FormControl type="password" placeholder="Your password" />
-          </FormGroup>
-          <Button bsStyle="primary" type="submit">Login</Button>
-          <br/><br/>
-          Not yet registered ? <a href="/signup">Sign up here</a>
-        </form>
+      <div>
+          <Header />
+          <div className="container">
+            <CheckAlert isAlert={this.state.isAlert} alertStyle={this.state.alertStyle} alertData={this.state.alertData} />
+            <h1>Login</h1>
+            <form>
+              <FormGroup>
+                <ControlLabel>Email</ControlLabel>
+                <FormControl type="text" placeholder="Your email" />
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>Password</ControlLabel>
+                <FormControl type="password" placeholder="Your password" />
+              </FormGroup>
+              <Button bsStyle="primary" type="submit">Login</Button>
+              <br/><br/>
+              Not yet registered ? <a href="/signup">Sign up here</a>
+            </form>
+          </div>
       </div>
     );
   }
