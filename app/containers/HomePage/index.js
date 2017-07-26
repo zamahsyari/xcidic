@@ -17,42 +17,28 @@ import { CheckAlert } from 'components/CheckAlert';
 import { Header } from 'components/Header';
 import $ from 'jquery';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props){
 	    super(props);
 	    this.state={
 	        isAlert:false,
 	        alertData:"",
-	        alertStyle:"warning"
-	    },
-      this.addData=this.addData.bind(this);
+	        alertStyle:"warning",
+          data:[],
+	    }
 	  }
-  addData(){
-    $.ajax({
-      url:'http://127.0.0.1:8080/add',
-      method:'post',
-      // data:JSON.stringify({"name":"budi","email":"budi@gmail.com"}),
-      data:"pass",
-      success:function(response){
-        console.log(response);
-      },error:function(error){
-        console.log(error)
-      }
-    });
-    // $.ajax({
-    //   url:'http://127.0.0.1:8080/add',
-    //   method:'post',
-    //   data:{'name':'budi','email':'budi@gmail.com'},
-    //   success:function(response){
-    //     console.log(response);
-    //   },error:function(error){
-    //     console.log(error)
-    //   }
-    // });
-  }
-  componentDidMount(){
-    
-  }
+    componentDidMount(){
+      var init=this;
+      $.ajax({
+        url:'http://127.0.0.1:8080/all',
+        success:function(data){
+          console.log(data);
+          // init.setState({data:data});
+        },error:function(error){
+          console.log(e);
+        }
+      });
+    }
   render() {
     return (
       <div>
@@ -67,15 +53,33 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                   <th>Email</th>
                   <th>Weight</th>
                   <th>Height</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-
+                {this.state.data.map((record,i)=><TableRow key={i} data={record} />)}
               </tbody>
             </Table>
-            <Button onClick={this.addData} bsStyle="primary">Add data</Button>
+            <a href="/addrecord"><Button bsStyle="primary">Add data</Button></a>
       	</div>
       </div>
+    );
+  }
+}
+
+export class TableRow extends React.Component{
+  render(){
+    return(
+      <tr>
+        <td>{this.props.data.name}</td>
+        <td>{this.props.data.email}</td>
+        <td>{this.props.data.weight}</td>
+        <td>{this.props.data.height}</td>
+        <td>
+          <a href="/editrecord"><Button bsStyle="warning">Edit Record</Button></a>
+          <a href="/deleterecord"><Button bsStyle="danger">Delete Record</Button></a>
+        </td>
+      </tr>
     );
   }
 }

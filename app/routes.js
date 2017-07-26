@@ -74,6 +74,46 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/addrecord',
+      name: 'addRecord',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/AddRecord/reducer'),
+          import('containers/AddRecord/sagas'),
+          import('containers/AddRecord'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('addRecord', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/editrecord',
+      name: 'editRecord',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/EditRecord/reducer'),
+          import('containers/EditRecord/sagas'),
+          import('containers/EditRecord'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('editRecord', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
